@@ -1,0 +1,17 @@
+.list-description {
+  margin: 15px;
+}
+
+.list-summary-button {
+  margin-bottom: 15px;
+}
+
+.list-summary-link {
+  text-decoration: none;
+  color: white;
+}
+
+
+.list-user {
+  cursor: pointer;
+}

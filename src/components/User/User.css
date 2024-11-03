@@ -1,0 +1,31 @@
+.user-back-button {
+  margin: 15px 0;
+}
+
+.user-container {
+  display: flex;
+  margin-top: 15px;
+  align-items: center;
+  justify-content: end;
+}
+
+.user-logo {
+  background: #0d6efd;
+  height: 30px;
+  width: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50px;
+  margin-left: 10px;
+  color: white;
+}
+
+.user-input-container {
+  display: flex;
+  margin-bottom: 15px;
+}
+
+.user-add-button {
+  margin-left: 15px;
+}

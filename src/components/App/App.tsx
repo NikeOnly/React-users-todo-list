@@ -15,7 +15,7 @@ function App() {
       <Routes>
         <Route path="/" element={<List users={users} />} />
         <Route path="users/:id" element={<User users={users} todos={todos} />} />
-        <Route path="summary" element={<Summary />} />
+        <Route path="summary" element={<Summary users={users} todos={todos} />} />
       </Routes>
     </BrowserRouter>
   );

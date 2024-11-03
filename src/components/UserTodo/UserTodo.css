@@ -1,0 +1,18 @@
+div.user-todo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.user-todo-button {
+  width: 75px;
+  margin-left: 15px;
+}
+
+.user-todo-text {
+  flex: auto;
+}
+
+input.user-todo-text {
+  width: auto;
+}
