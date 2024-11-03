@@ -8,14 +8,21 @@ import { useGetTodosQuery } from '../../api/todos';
 import './App.css';
 
 function App() {
-  const { data: users = [], isLoading: isUsersLoading } = useGetUsersQuery();
-  const { data: todos = [], isLoading: isTodosLoading } = useGetTodosQuery();
+  const { data: users = [], isLoading: areUsersLoading } = useGetUsersQuery();
+  const { data: todos = [], isLoading: areTodosLoading } = useGetTodosQuery();
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<List users={users} />} />
-        <Route path="users/:id" element={<User users={users} todos={todos} />} />
-        <Route path="summary" element={<Summary users={users} todos={todos} />} />
+        <Route path="/" element={<List users={users} areUsersLoading={areUsersLoading} />} />
+        <Route path="users/:id" element={<User users={users} areUsersLoading={areUsersLoading} />} />
+        <Route path="summary" element={
+          <Summary
+            users={users}
+            todos={todos}
+            areUsersLoading={areUsersLoading}
+            areTodosLoading={areTodosLoading}
+          />
+        } />
       </Routes>
     </BrowserRouter>
   );

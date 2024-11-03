@@ -41,6 +41,21 @@ export const todosApi = createApi({
       },
       invalidatesTags: (result, error, id) => [{ type: 'Todo', id }],
     }),
+    getUserTodos: builder.query<Todos, string>({
+      query(id) {
+        return {
+          url: `user/${id}/todos`,
+          method: 'GET',
+        }
+      },
+      providesTags: (result) =>
+        result
+          ? [
+              ...result.map(({ id }) => ({ type: 'Todo' as const, id })),
+              { type: 'Todo', id: 'TODOLIST' },
+            ]
+          : [{ type: 'Todo', id: 'TODOLIST' }],
+    }),
   }),
 });
 
@@ -49,4 +64,5 @@ export const {
   useAddTodoMutation,
   useEditTodoMutation,
   useDeleteTodoMutation,
+  useGetUserTodosQuery,
 } = todosApi;

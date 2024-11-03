@@ -5,10 +5,11 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import ListGroup from 'react-bootstrap/ListGroup';
 import Button from 'react-bootstrap/Button';
+import Loader from '../Loader/Loader';
 import { Users } from '../../types/user.types';
 import './List.css';
 
-function List({ users }: { users: Users }) {
+function List({ users, areUsersLoading }: { users: Users, areUsersLoading: boolean }) {
   const navigate = useNavigate();
   const onUserClick = (id: number) => {
     navigate(`/users/${id}`);
@@ -26,13 +27,15 @@ function List({ users }: { users: Users }) {
               User todos summary
             </Button>
           </Link>
-          <ListGroup>
-            {users?.map((user) => 
-              <ListGroup.Item key={user.id} className="list-user" onClick={() => onUserClick(user.id)}>
-                {user.name}
-              </ListGroup.Item>
-            )}
-          </ListGroup>
+          {areUsersLoading ? <Loader /> : (
+            <ListGroup>
+              {users?.map((user) => 
+                <ListGroup.Item key={user.id} className="list-user" onClick={() => onUserClick(user.id)}>
+                  {user.name}
+                </ListGroup.Item>
+              )}
+            </ListGroup>
+          )}
         </Col>
       </Row>
     </Container>

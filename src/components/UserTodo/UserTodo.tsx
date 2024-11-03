@@ -41,7 +41,7 @@ function UserTodo(
   const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => setText(e.target.value);
 
   return (
-    <ListGroup.Item key={todo.id} className="user-todo">
+    <ListGroup.Item className="user-todo">
       {isEditing ? (
         <Form.Control
           type="text"

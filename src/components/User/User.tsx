@@ -6,24 +6,29 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 import ListGroup from 'react-bootstrap/ListGroup';
-import Spinner from 'react-bootstrap/Spinner';
 import Form from 'react-bootstrap/Form';
 import UserTodo from '../UserTodo/UserTodo';
-import { useDeleteTodoMutation, useAddTodoMutation, useEditTodoMutation } from '../../api/todos';
+import Loader from '../Loader/Loader';
+import {
+  useDeleteTodoMutation,
+  useAddTodoMutation,
+  useEditTodoMutation,
+  useGetUserTodosQuery
+} from '../../api/todos';
 import { Users } from '../../types/user.types';
-import { Todos } from '../../types/todos.types';
 import './User.css';
 
-function User({ users, todos }: { users: Users, todos: Todos }) {
+function User({ users, areUsersLoading }: { users: Users, areUsersLoading: boolean }) {
   const { id } = useParams();
   const [text, setText] = useState('');
   const [editId, setEditId] = useState(0);
+  const { data: userTodos = [], isLoading: areUserTodosLoading } = useGetUserTodosQuery(id as string);
   const [deleteTodo, { isLoading: isDeleting }] = useDeleteTodoMutation();
   const [addTodo, { isLoading: isAdding }] = useAddTodoMutation();
   const [editTodo, { isLoading: isEditing }] = useEditTodoMutation();
+  const isLoading = isDeleting || isAdding || isEditing || areUsersLoading || areUserTodosLoading;
 
   const currentUser = users.find((user) => String(user.id) === id);
-  const currentUserTodos = todos?.filter((todo) => String(todo.userId) === id);
   const userName = currentUser?.name || 'A';
 
   const onAddTodoClick = () => {
@@ -67,12 +72,11 @@ function User({ users, todos }: { users: Users, todos: Todos }) {
             />
             <Button className="user-add-button" onClick={onAddTodoClick}>Add</Button>
           </div>
-          {(isDeleting || isAdding || isEditing) ? (
-            <div className="spinner"><Spinner /></div>
-          ) : (
+          {isLoading ? <Loader /> : (
             <ListGroup>
-              {currentUserTodos.map((todo) => 
+              {userTodos.map((todo) => 
                 <UserTodo
+                  key={todo.id}
                   todo={todo}
                   deleteTodo={deleteTodo}
                   editId={editId}
